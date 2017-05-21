@@ -4,6 +4,8 @@ module Lib
       isnumericval
     ) where
 
+import Control.Exeption.Safe
+
 someFunc :: IO ()
 someFunc = putStrLn "someFunc"
 
