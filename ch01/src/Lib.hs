@@ -58,5 +58,9 @@ eval1 t =
       Just $ TmIsZero t1'
     _ -> Nothing
       
-     
+eval :: Term -> Term
+eval t = case eval1 t of
+  Just t' -> eval t'
+  Nothing -> t
+       
 
