@@ -32,4 +32,31 @@ isnumericval t =
     TmZero    -> True
     TmSucc t' -> isnumericval t'
     _         -> False 
-    
+
+eval1::Term-> Maybe Term
+eval1 t =
+  case t of
+    TmIf TmTrue t2 t3 -> Just t2
+    TmIf TmFalse t2 t3 -> Just t3
+    TmIf t1 t2 t3 -> do
+      t1' <- eval1 t1
+      Just $ TmIf t1' t2 t3
+    TmSucc t1 -> do
+      t1' <- eval1 t1 
+      Just $ TmSucc t1'
+    TmPred TmZero -> Just $ TmZero
+    TmPred (TmSucc nv1) | isnumericval nv1 -> Just nv1
+                        | otherwise        -> Nothing
+    TmPred t1 -> do
+      t1' <- eval1 t1
+      Just $ TmPred t1' 
+    TmIsZero TmZero -> Just TmTrue
+    TmIsZero ( TmSucc nv1) | isnumericval nv1 -> Just TmFalse
+                           | otherwise        -> Nothing
+    TmIsZero t1 -> do
+      t1' <- eval1 t1
+      Just $ TmIsZero t1'
+    _ -> Nothing
+      
+     
+
