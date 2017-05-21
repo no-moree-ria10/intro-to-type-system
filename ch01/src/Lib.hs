@@ -1,6 +1,7 @@
 module Lib
     ( someFunc,
-      Term(..)
+      Term(..),
+      isnumericval
     ) where
 
 someFunc :: IO ()
@@ -14,6 +15,7 @@ data Term =
   | TmSucc Term
   | TmPred Term
   | TmIsZero Term
+  deriving(Show)
 
 isnumericval:: Term->Bool  
 isnumericval t =
