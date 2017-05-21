@@ -1,5 +1,6 @@
 module Lib
-    ( someFunc
+    ( someFunc,
+      Term(..)
     ) where
 
 someFunc :: IO ()
@@ -13,4 +14,11 @@ data Term =
   | TmSucc Term
   | TmPred Term
   | TmIsZero Term
-  
+
+isnumericval:: Term->Bool  
+isnumericval t =
+  case t of
+    TmZero    -> True
+    TmSucc t' -> isnumericval t'
+    _         -> False 
+    
